@@ -48,6 +48,13 @@ namespace ConsoleApplication6
             }
         }
         
+        public void addCollectionStudent(int nr)
+        {
+            for (int i = 0; i < nr; i++)
+            {
+                addStudent();
+            }
+        }
 
         public void clearCurs()
         {
@@ -70,12 +77,14 @@ namespace ConsoleApplication6
             return infoCurs;
         }
 
-        public void showStudent()
+        public String showStudent()
         {
-            foreach(Student student in listStudent)
+            String infoStudent = "";
+            foreach (Student student in listStudent)
             {
-                Console.WriteLine(student.ToString());
+                infoStudent += student.ToString();
             }
+            return infoStudent;
         }
         
 
@@ -87,6 +96,11 @@ namespace ConsoleApplication6
         public List<Student> getListStudent()
         {
             return listStudent;
+        }
+
+        public void showTouteInfo()
+        {
+            Console.WriteLine(ToString()+showStudent()+showCurs());
         }
 
         public override string ToString()

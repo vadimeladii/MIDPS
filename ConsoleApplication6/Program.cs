@@ -19,17 +19,22 @@ namespace ConsoleApplication6
                 Console.WriteLine("1. Introduce curs");
                 Console.WriteLine("2. Show curs");
                 Console.WriteLine("3. Introduce mai multe cursuri odata");
-                Console.WriteLine("4. Introduce universitatea");
-                Console.WriteLine("4. Afiseaza nr de niversitati");
+                Console.WriteLine("4. Introduce student");
+                Console.WriteLine("5. Introduce mai multi studenti odata");
+                Console.WriteLine("6. Show student");
+                Console.WriteLine("7. Introduce universitatea");
+                Console.WriteLine("8. Afiseaza nr de niversitati");
+                Console.WriteLine("9. Afisarea toatei info destpre universitate");
 
                 Console.WriteLine("Introduce o cifra ");
+
                 switch (Convert.ToInt32(Console.ReadLine()))
                 {
                     case 1:
                         univ.addCurs();
                         break;
                     case 2:
-                        univ.showCurs();
+                        Console.WriteLine(univ.showCurs());
                         break;
                     case 3:
                         Console.WriteLine("1. Introduce nr de cursuri care doriti sa adaugati :");
@@ -37,16 +42,30 @@ namespace ConsoleApplication6
                         univ.addCollectionCurs(nrCurs);
                         break;
                     case 4:
+
+                        break;
+                    case 5:
+
+                        break;
+                    case 6:
+
+                        break;
+                    case 7:
                         mapUniver.Add(++index, new Univ());
                         univ = mapUniver[index];
                         Console.WriteLine ( "introduce numele universitati");
                         String name=Console.ReadLine();
                         univ.nameUniv = name;
                         break;
-                    case 5:
+                    case 8:
                         Console.WriteLine("Alege universitatea dorita");
                         showUniv();
-
+                        Console.WriteLine("------------------");
+                        int i =Convert.ToInt32(Console.ReadLine());
+                        univ = mapUniver[i];
+                        break;
+                    case 9:
+                        univ.showTouteInfo();
                         break;
                     default:
                         break;
@@ -56,9 +75,9 @@ namespace ConsoleApplication6
 
         public static void showUniv()
         {
-            foreach(Univ univ in mapUniver.Values)
+            foreach(var map in mapUniver)
             {
-                Console.WriteLine(univ.nameUniv);
+                Console.WriteLine("Key:{0} : Value {1}", map.Key, map.Value);
             }
         }
     }

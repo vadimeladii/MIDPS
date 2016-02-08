@@ -35,6 +35,7 @@ namespace ConsoleApplication6
                         break;
                     case 2:
                         Console.WriteLine(univ.showCurs());
+                        Console.WriteLine("Cursul a fost introdus cu bine");
                         break;
                     case 3:
                         Console.WriteLine("1. Introduce nr de cursuri care doriti sa adaugati :");
@@ -42,13 +43,16 @@ namespace ConsoleApplication6
                         univ.addCollectionCurs(nrCurs);
                         break;
                     case 4:
-
+                        univ.addStudent();
+                        Console.WriteLine("Studentul a fost introdus cu bine");
                         break;
                     case 5:
-
+                        Console.WriteLine("2. Introduce nr de studenti care doriti sa adaugati :");
+                        int nrStudenti = Convert.ToInt32(Console.ReadLine());
+                        univ.addCollectionStudent(nrStudenti);
                         break;
                     case 6:
-
+                        univ.showStudent();
                         break;
                     case 7:
                         mapUniver.Add(++index, new Univ());

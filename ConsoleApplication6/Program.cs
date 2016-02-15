@@ -8,68 +8,58 @@ namespace ConsoleApplication6
 {
     class Program
     {
-        private static Dictionary<int, Univ> mapUniver = new Dictionary<int, Univ>();
-        private static Univ univ;
+        private static Dictionary<int, Magazin> mapMagazin = new Dictionary<int, Magazin>();
+        private static Magazin magazin;
         private static int index = 0;
         static void Main(string[] args)
         {
             while (true)
             {
                 Console.WriteLine("Menu");
-                Console.WriteLine("1. Introduce curs");
-                Console.WriteLine("2. Show curs");
-                Console.WriteLine("3. Introduce mai multe cursuri odata");
-                Console.WriteLine("4. Introduce student");
-                Console.WriteLine("5. Introduce mai multi studenti odata");
-                Console.WriteLine("6. Show student");
-                Console.WriteLine("7. Introduce universitatea");
-                Console.WriteLine("8. Afiseaza nr de niversitati");
-                Console.WriteLine("9. Afisarea toatei info destpre universitate");
+                Console.WriteLine("1. Introduce Magazin");
+                Console.WriteLine("2. Show Magazin");
+                Console.WriteLine("3. Alege magazinul dorit");
+                Console.WriteLine("4. Introduce Ceriale");
+                Console.WriteLine("5. ShowCereale");
+                Console.WriteLine("6. Introduce Legume");
+                Console.WriteLine("7. Show Legume");
+                Console.WriteLine("8. Show totul info");
+                Console.WriteLine("9. Sort");
 
                 Console.WriteLine("Introduce o cifra ");
 
                 switch (Convert.ToInt32(Console.ReadLine()))
                 {
                     case 1:
-                        univ.addCurs();
+                        mapMagazin.Add(++index, new Magazin());
+                        magazin = mapMagazin[index];
                         break;
                     case 2:
-                        Console.WriteLine(univ.showCurs());
-                        Console.WriteLine("Cursul a fost introdus cu bine");
+                        showMagazin();
                         break;
                     case 3:
-                        Console.WriteLine("1. Introduce nr de cursuri care doriti sa adaugati :");
-                        int nrCurs = Convert.ToInt32(Console.ReadLine());
-                        univ.addCollectionCurs(nrCurs);
+                        Console.WriteLine("Alege Magazinul dorita");
+                        Console.WriteLine("------------------");
+                        int i = Convert.ToInt32(Console.ReadLine());
+                        magazin = mapMagazin[i];
                         break;
                     case 4:
-                        univ.addStudent();
-                        Console.WriteLine("Studentul a fost introdus cu bine");
+                        magazin.addProdus((new Cereale()));
                         break;
                     case 5:
-                        Console.WriteLine("2. Introduce nr de studenti care doriti sa adaugati :");
-                        int nrStudenti = Convert.ToInt32(Console.ReadLine());
-                        univ.addCollectionStudent(nrStudenti);
+                        Console.WriteLine(magazin.showListProdus());
                         break;
                     case 6:
-                        univ.showStudent();
+                        magazin.addProdus((new Legume()));
                         break;
                     case 7:
-                        mapUniver.Add(++index, new Univ());
-                        univ = mapUniver[index];
-                        Console.WriteLine ( "introduce numele universitati");
-                        String name=Console.ReadLine();
-                        univ.nameUniv = name;
+                        Console.WriteLine(magazin.showListCereale());
                         break;
                     case 8:
-                        Console.WriteLine("Alege universitatea dorita");
-                        showUniv();
-                        Console.WriteLine("------------------");
-                        int i =Convert.ToInt32(Console.ReadLine());
-                        univ = mapUniver[i];
+                        Console.WriteLine(magazin.ToString());
                         break;
                     case 9:
-                        univ.showTouteInfo();
+                        magazin.sortProdus();
                         break;
                     default:
                         break;
@@ -77,9 +67,9 @@ namespace ConsoleApplication6
             }
         }
 
-        public static void showUniv()
+        public static void showMagazin()
         {
-            foreach(var map in mapUniver)
+            foreach(var map in mapMagazin)
             {
                 Console.WriteLine("Key:{0} : Value {1}", map.Key, map.Value);
             }

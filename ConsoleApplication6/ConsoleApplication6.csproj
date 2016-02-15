@@ -43,11 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Curs.cs" />
+    <Compile Include="produs\Cereale.cs" />
+    <Compile Include="produs\Legume.cs" />
+    <Compile Include="Magazin.cs" />
+    <Compile Include="produs\Produs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Student.cs" />
-    <Compile Include="Univ.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

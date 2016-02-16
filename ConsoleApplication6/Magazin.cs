@@ -8,108 +8,76 @@ namespace ConsoleApplication6
 {
     public class Magazin
     {
-        List<Produs> listProdus = null;
+        List<Cereale> listCereale = null;
+        List<Lactate> listLactate = null ;
         public String nameMagazin { get; set; }
-
+        public int id { get; set; }
 
         public Magazin()
         {
             Console.WriteLine("introduce numele Magazinului");
             nameMagazin = Console.ReadLine();
-            listProdus = new List<Produs>();
+            listLactate = new List<Lactate>();
+            listCereale = new List<Cereale>();
         }
 
         public void addProdus(Produs produs)
         {
-            listProdus.Add(produs);
-        }
-
-        public List<Produs> getListProdus()
-        {
-            return listProdus;
-        }
-
-        public string showListProdus()
-        {
-            string text = null;
-            foreach(Produs produs in listProdus)
+            if (produs is Lactate)
             {
-                text += produs.ToString();
+                listLactate.Add((Lactate)produs);
+            }else if(produs is Cereale)
+            {
+                listCereale.Add((Cereale)produs);
             }
-            return text;
-           
         }
+
+        public void addProdus(Produs produs,int posInitial)
+        {
+            if (produs is Lactate)
+            {
+                listLactate.Insert(posInitial, (Lactate)produs);
+            }
+            else if (produs is Cereale)
+            {
+                listCereale.Insert(posInitial,(Cereale)produs);
+            }
+        }
+
+        public List<Cereale> getListCereale()
+        {
+            return listCereale;
+        }
+
+        public List<Lactate> getListLegume()
+        {
+            return listLactate;
+        }
+
         public string showListCereale()
         {
             string text = null;
-            foreach(Produs produs in listProdus)
+            foreach (Cereale cereale in listCereale)
             {
-                if (produs is Cereale)
-                {
-                    text += produs.ToString();
-                }
+                text += cereale.ToString();
+            }
+            return text;
+
+        }
+        public string showListLegume()
+        {
+            string text = null;
+            foreach (Lactate legume in listLactate)
+            {
+                    text += legume.ToString();
             }
             return text;
         }
 
-        public void sortProdus()
-        {
-            listProdus.Sort();
-        }
-
-        public void deleteProdus(int id)
-        {
-            listProdus.RemoveAt(id);
-        }
-
         public override string ToString()
         {
-            return "Magazinul :" +nameMagazin + "Produsele :" + showListProdus();
+            return "Magazinul: "+ nameMagazin + " \n "+ showListCereale() + showListLegume();
         }
-    }
-    public class Part : IEquatable<Produs>, IComparable<Produs>
-    {
-        public string nameComponentProdus { get; set; }
-
-        public int cantitateaProdus { get; set; }
-
-        public override string ToString()
-        {
-            return "Cantitate: " + cantitateaProdus + "   Name Component: " + nameComponentProdus;
-        }
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-            Part objAsPart = obj as Part;
-            if (objAsPart == null) return false;
-            else return Equals(objAsPart);
-        }
-        public int SortByNameAscending(string name1, string name2)
-        {
-
-            return name1.CompareTo(name2);
-        }
-
-        // Default comparer for Part type.
-        public int CompareTo(Produs comparePart)
-        {
-            // A null value means that this object is greater.
-            if (comparePart == null)
-                return 1;
-
-            else
-                return this.cantitateaProdus.CompareTo(comparePart.cantitateaProdus);
-        }
-        public override int GetHashCode()
-        {
-            return cantitateaProdus;
-        }
-        public bool Equals(Produs other)
-        {
-            if (other == null) return false;
-            return (this.cantitateaProdus.Equals(other.cantitateaProdus));
-        }
-        // Should also override == and != operators.
-
     }
 }
+

@@ -8,22 +8,21 @@ namespace ConsoleApplication6
 {
     public class Cereale : Produs
     {
-        public string timpuFireberi { get; set; }
+        public string cantitateUmiditate { get; set; }
         public Cereale() : base()
         {
-            Console.WriteLine("Introduce timpul de producere : ");
-            timpuFireberi = Console.ReadLine();
+            Console.WriteLine("Introduce cantitatea umiditate : ");
+            cantitateUmiditate = Console.ReadLine();
         }
 
         public Cereale(String nameComponentProdus ,int cantitateaProdus , String timpulFierberi) : base(nameComponentProdus, cantitateaProdus)
         {
-            this.timpuFireberi = timpulFierberi;
+            this.cantitateUmiditate = timpulFierberi;
         }
 
         public override string ToString()
         {
-            return "Numele produsului :" + nameComponentProdus + " \n Cantitatea Produs" + cantitateaProdus + " \n Timpul de fierbere" + timpuFireberi;
+            return  "Cereale :"+nameComponentProdus + " \n Cantitatea :" + cantitateaProdus + " \n Cantitatea de umiditate : " + cantitateUmiditate+"\n";
         }
-
     }
 }

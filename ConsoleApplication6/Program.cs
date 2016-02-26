@@ -27,10 +27,12 @@ namespace ConsoleApplication6
                 Console.WriteLine("5. Sterge o serie de magazine");
                 Console.WriteLine("6. Sortare magazine");
                 Console.WriteLine("7. Adauga mai multe magazine");
-                Console.WriteLine("8.Adauga la magazin");
+                Console.WriteLine("8.Adauga la magazin ceva nou");
                 Console.WriteLine("9. Arata toate informatia despre magazin");
-
                 Console.WriteLine("10. Adauga o noua cereale ");
+                Console.WriteLine("11. Adauga o noua lactata");
+                Console.WriteLine("12 Show listCereale");
+                Console.WriteLine("13 Show listLactate");
 
                 Console.WriteLine("Introduce o cifra ");
 
@@ -69,7 +71,6 @@ namespace ConsoleApplication6
                             addMagazin(init);
                         }
                         break;
-
                     case 8:
                         Console.WriteLine("1. Introduce ceriale");
                         Console.WriteLine("2. Arata ceriale");
@@ -124,7 +125,10 @@ namespace ConsoleApplication6
                                 }
                                 break;
                             case 7:
-                                magazin.addProdus((new Lactate()));
+                                showListLactate();
+                                Console.WriteLine("introduceti care lactate doriti");
+                                ii = Convert.ToInt32(Console.ReadLine());
+                                magazin.addProdus(listLactate[--ii]);
                                 break;
                             case 8:
                                 show<Lactate>(magazin.getListLegume());
@@ -160,10 +164,16 @@ namespace ConsoleApplication6
                         listCereale.Add(new Cereale());
                         break;
                     case 11:
+                        listLactate.Add(new Lactate());
+                        break;
+                    case 12:
                         showListCereale();
                         break;
-
+                    case 13:
+                        showListCereale();
+                        break;
                     default:
+                        Console.WriteLine("Introduce cifra corecta");
                         break;
                 }
             }
@@ -175,6 +185,15 @@ namespace ConsoleApplication6
             foreach(Cereale cereale in listCereale)
             {
                 Console.WriteLine("Key" + (++i) + "Nume" + cereale.nameComponentProdus);
+            }
+        }
+
+        public static void showListLactate()
+        {
+            int i = 0;
+            foreach(Lactate lactate in listLactate)
+            {
+                Console.WriteLine("Key" + (++i) + "Nume" + lactate.nameComponentProdus);
             }
         }
 

@@ -15,7 +15,7 @@ namespace ConsoleApplication6
             int time = Convert.ToInt32(Console.ReadLine());
         }
 
-        public Lactate(String nameComponentProdus, int cantitateaProdus, String grame) : base(nameComponentProdus, cantitateaProdus)
+        public Lactate(int idLactate,String nameComponentProdus, int cantitateaProdus, String grame) : base(idLactate,nameComponentProdus, cantitateaProdus)
         {
             this.time = time;
         }

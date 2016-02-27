@@ -13,44 +13,59 @@ namespace ConsoleApplication6
         private static List<Cereale> listCereale = new List<Cereale>();
         private static List<Lactate> listLactate = new List<Lactate>();
 
-        private static Magazin magazin;
+        public static  Magazin magazinPrimar { get; set; }
         static void Main(string[] args)
         {
             while (true)
             {
                 Console.WriteLine("Menu");
 
-                Console.WriteLine("1. Adauga un magazin");
-                Console.WriteLine("2. Arata magazinele");
+                Console.WriteLine("1. Adauga un magazin"); //
+                Console.WriteLine("2. Arata magazinele");  //
                 Console.WriteLine("3. Alege magazinul");
-                Console.WriteLine("4. Sterge magazin");
+                Console.WriteLine("4. Sterge magazin");  //
                 Console.WriteLine("5. Sterge o serie de magazine");
-                Console.WriteLine("6. Sortare magazine");
+                Console.WriteLine("6. Sortare magazine"); //
                 Console.WriteLine("7. Adauga mai multe magazine");
-                Console.WriteLine("8.Adauga la magazin ceva nou");
-                Console.WriteLine("9. Arata toate informatia despre magazin");
-                Console.WriteLine("10. Adauga o noua cereale ");
+                Console.WriteLine("8.Adauga la magazin ceva nou"); 
+                Console.WriteLine("9. Arata toate informatia despre magazin"); //
+                Console.WriteLine("10. Adauga o noua cereale "); //
                 Console.WriteLine("11. Adauga o noua lactata");
-                Console.WriteLine("12 Show listCereale");
+                Console.WriteLine("12 Show listCereale");  //
                 Console.WriteLine("13 Show listLactate");
+                Console.WriteLine("14. Update magazin");  //
+                Console.WriteLine("15. update cereale");
+                Console.WriteLine("16. id Magazin"); // temporar
 
                 Console.WriteLine("Introduce o cifra ");
 
                 switch (Convert.ToInt32(Console.ReadLine()))
                 {
                     case 1:
-                        addMagazin();
+                        new InsertDB().magazin();
+                        //addMagazin();
                         break;
                     case 2:
+                        new SelectDB().magazinTout();
                         show<Magazin>(listMagazin);
                         break;
                     case 3:
+                        show<Magazin>(listMagazin);
                         Console.WriteLine("Alege Magazinul dorita");
                         int i = Convert.ToInt32(Console.ReadLine());
-                        magazin = listMagazin[i - 1];
+                        foreach(Magazin magazin in listMagazin)
+                        {
+                            if (magazin.id == i)
+                            {
+                                magazinPrimar = magazin;
+                            }
+                        }
                         break;
                     case 4:
-                        remove<Magazin>(listMagazin, idDelete());
+                        Console.WriteLine("Introduce id la magazinul care doresti sa stergi");
+                        int id = Convert.ToInt32(Console.ReadLine());
+                        new DeleteDB().deleteMagazin(id);
+                        //remove<Magazin>(listMagazin, idDelete());
                         break;
                     case 5:
                         Console.WriteLine("Introduce intre ce raza doriti sa stergeti elementele : ");
@@ -94,22 +109,23 @@ namespace ConsoleApplication6
                                 showListCereale();
                                 Console.WriteLine("introduceti care cereala doriti");
                                 int ii = Convert.ToInt32(Console.ReadLine());
-                                magazin.addProdus(listCereale[--ii]);
+                                magazinPrimar.addProdus(listCereale[--ii]);
                                 break;
                             case 2:
-                                show<Cereale>(magazin.getListCereale());
+                                new SelectDB().cerealeMagazinID(magazinPrimar.id);
+                                show<Cereale>(magazinPrimar.getListCereale());
                                 break;
                             case 3:
-                                remove<Cereale>(magazin.getListCereale(), idDelete());
+                                remove<Cereale>(magazinPrimar.getListCereale(), idDelete());
                                 break;
                             case 4:
                                 Console.WriteLine("Introduce intre ce raza doriti sa stergeti elementele : ");
                                 primPosition = Convert.ToInt32(Console.ReadLine());
                                 finalPositon = Convert.ToInt32(Console.ReadLine());
-                                remove<Cereale>(magazin.getListCereale(), primPosition, finalPositon);
+                                remove<Cereale>(magazinPrimar.getListCereale(), primPosition, finalPositon);
                                 break;
                             case 5:
-                                sorts<Cereale>(magazin.getListCereale());
+                                sorts<Cereale>(magazinPrimar.getListCereale());
                                 break;
                             case 6:
                                 Console.WriteLine("Alege positia initiala");
@@ -121,29 +137,29 @@ namespace ConsoleApplication6
                                     showListCereale();
                                     Console.WriteLine("introduceti care cereala doriti");
                                     ii = Convert.ToInt32(Console.ReadLine());
-                                    magazin.addProdus(listCereale[--ii],init);
+                                    magazinPrimar.addProdus(listCereale[--ii], init);
                                 }
                                 break;
                             case 7:
                                 showListLactate();
                                 Console.WriteLine("introduceti care lactate doriti");
                                 ii = Convert.ToInt32(Console.ReadLine());
-                                magazin.addProdus(listLactate[--ii]);
+                                magazinPrimar.addProdus(listLactate[--ii]);
                                 break;
                             case 8:
-                                show<Lactate>(magazin.getListLegume());
+                                show<Lactate>(magazinPrimar.getListLegume());
                                 break;
                             case 9:
-                                remove<Lactate>(magazin.getListLegume(), idDelete());
+                                remove<Lactate>(magazinPrimar.getListLegume(), idDelete());
                                 break;
                             case 10:
                                 Console.WriteLine("Introduce intre ce raza doriti sa stergeti elementele : ");
                                 primPosition = Convert.ToInt32(Console.ReadLine());
                                 finalPositon = Convert.ToInt32(Console.ReadLine());
-                                remove<Lactate>(magazin.getListLegume(), primPosition, finalPositon);
+                                remove<Lactate>(magazinPrimar.getListLegume(), primPosition, finalPositon);
                                 break;
                             case 11:
-                                sorts<Lactate>(magazin.getListLegume());
+                                sorts<Lactate>(magazinPrimar.getListLegume());
                                 break;
                             case 12:
                                 Console.WriteLine("Alege positia initiala");
@@ -152,16 +168,17 @@ namespace ConsoleApplication6
                                 nrDate = Convert.ToInt32(Console.ReadLine());
                                 for (int j = 0; j < nrDate; j++)
                                 {
-                                    magazin.addProdus((new Lactate()), init);
+                                    magazinPrimar.addProdus((new Lactate()), init);
                                 }
                                 break;
                         }
                         break;
                     case 9:
-                        Console.WriteLine(magazin.ToString());
+                        Console.WriteLine(magazinPrimar.ToString());
                         break;
                     case 10:
-                        listCereale.Add(new Cereale());
+                        //  listCereale.Add(new Cereale());
+                        new InsertDB().cereale();
                         break;
                     case 11:
                         listLactate.Add(new Lactate());
@@ -172,6 +189,19 @@ namespace ConsoleApplication6
                     case 13:
                         showListCereale();
                         break;
+                    case 14:
+                        Console.WriteLine("Alege positia care doriti sa faceti modificare");
+                        id = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Introduce numele nou a magazinului");
+                        string nameMagazin = Console.ReadLine();
+                        new UpdateDB().magazin(id, nameMagazin);
+                        break;
+                    case 15:
+                        new UpdateDB().cereale(1, "griu", 10, "10%");
+                        break;
+                    case 16:
+                       Console.WriteLine(magazinPrimar.id);
+                        break;
                     default:
                         Console.WriteLine("Introduce cifra corecta");
                         break;
@@ -181,17 +211,17 @@ namespace ConsoleApplication6
 
         public static void showListCereale()
         {
-            int i = 0;
-            foreach(Cereale cereale in listCereale)
+            new SelectDB().cereale();
+            foreach (Cereale cereale in listCereale)
             {
-                Console.WriteLine("Key" + (++i) + "Nume" + cereale.nameComponentProdus);
+                Console.WriteLine(cereale.ToString());
             }
         }
 
         public static void showListLactate()
         {
             int i = 0;
-            foreach(Lactate lactate in listLactate)
+            foreach (Lactate lactate in listLactate)
             {
                 Console.WriteLine("Key" + (++i) + "Nume" + lactate.nameComponentProdus);
             }
@@ -199,13 +229,15 @@ namespace ConsoleApplication6
 
         public static void show<T>(List<T> list)
         {
-            foreach(Object objec in list)
+            
+
+            foreach (Object objec in list)
             {
                 Console.WriteLine(objec.ToString());
             }
         }
 
-       public static void sorts<T>(List<T> list)
+        public static void sorts<T>(List<T> list)
         {
             list.Sort(delegate (T x, T y)
             {
@@ -218,14 +250,14 @@ namespace ConsoleApplication6
 
         public static void addMagazin()
         {
-            magazin = new Magazin();
-            listMagazin.Add(magazin);
+            magazinPrimar = new Magazin();
+            listMagazin.Add(magazinPrimar);
         }
 
         public static void addMagazin(int posInitial)
         {
-            magazin = new Magazin();
-            listMagazin.Insert(--posInitial, magazin);
+            magazinPrimar = new Magazin();
+            listMagazin.Insert(--posInitial, magazinPrimar);
         }
 
         public static int idDelete()
@@ -253,8 +285,8 @@ namespace ConsoleApplication6
                 if (objects is Magazin)
                 {
                     Magazin magazins = (Magazin)objects;
-                    magazin.getListCereale().Clear();
-                    magazin.getListLegume().Clear();
+                    magazins.getListCereale().Clear();
+                    magazins.getListLegume().Clear();
                     list.RemoveAt(i);
                 }
             }
@@ -264,7 +296,7 @@ namespace ConsoleApplication6
             }
         }
 
-        public static void remove<T>(List<T> list, int primPosition,int finalPosition)
+        public static void remove<T>(List<T> list, int primPosition, int finalPosition)
         {
             if (list is List<Magazin>)
             {
@@ -272,15 +304,28 @@ namespace ConsoleApplication6
                 {
                     Object objects = list[i];
                     Magazin magazins = (Magazin)objects;
-                    magazin.getListCereale().Clear();
-                    magazin.getListLegume().Clear();
+                    magazins.getListCereale().Clear();
+                    magazins.getListLegume().Clear();
                 }
                 list.RemoveRange(--primPosition, --finalPosition);
             }
             else
             {
-                list.RemoveRange(--primPosition,--finalPosition);
+                list.RemoveRange(--primPosition, --finalPosition);
             }
+        }
+
+        public static List<Magazin> getListMagazin()
+        {
+            return listMagazin;
+        }
+        public static List<Cereale> getListCereale()
+        {
+            return listCereale;
+        }
+        public static List<Lactate> getListLactate()
+        {
+            return listLactate;
         }
     }
 }

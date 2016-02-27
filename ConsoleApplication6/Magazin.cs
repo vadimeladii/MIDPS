@@ -15,8 +15,6 @@ namespace ConsoleApplication6
 
         public Magazin()
         {
-            Console.WriteLine("introduce numele Magazinului");
-            nameMagazin = Console.ReadLine();
             listLactate = new List<Lactate>();
             listCereale = new List<Cereale>();
         }
@@ -76,7 +74,7 @@ namespace ConsoleApplication6
 
         public override string ToString()
         {
-            return "Magazinul: "+ nameMagazin + " \n "+ showListCereale() + showListLegume();
+            return "ID:" +id+ " Magazinul: "+ nameMagazin + " \n "+ showListCereale() + showListLegume();
         }
     }
 }
